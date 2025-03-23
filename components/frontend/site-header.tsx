@@ -44,63 +44,63 @@ const features = [
     title: 'Gestión de Inventario',
     description:
       'Sistema completo para administrar tu inventario de sneakers con seguimiento en tiempo real y alertas de stock.',
-    href: '/features/inventory-management',
+    href: '#inventory-management',
   },
   {
     icon: BarChart2,
     title: 'Análisis de Ventas',
     description:
       'Visualiza tendencias de ventas, sneakers más populares y rendimiento de inventario con gráficos interactivos.',
-    href: '/features/sales-analytics',
+    href: '#sales-analytics',
   },
   {
     icon: CloudUpload,
     title: 'Carga de Imágenes',
     description:
       'Carga fácilmente fotos de productos con soporte para imágenes múltiples y visualización en 360 grados.',
-    href: '/features/image-upload',
+    href: '#image-upload',
   },
   {
     icon: Users,
     title: 'Acceso Personalizado',
     description:
       'Control de acceso basado en roles para administradores, vendedores y personal de almacén.',
-    href: '/features/authentication',
+    href: '#authentication',
   },
   {
     icon: Layout,
     title: 'Panel de Control',
     description:
       'Panel responsive con información clave sobre inventario, ventas y productos más buscados.',
-    href: '/features/dashboard',
+    href: '#dashboard',
   },
   {
     icon: FileText,
     title: 'Fichas de Producto',
     description:
       'Formularios personalizables para registrar detalles completos de cada modelo de sneaker en tu inventario.',
-    href: '/features/product-forms',
+    href: '#product-forms',
   },
   {
     icon: BarChart,
     title: 'Informes Detallados',
     description:
       'Genera informes personalizados sobre rotación de inventario, modelos más vendidos y previsiones de demanda.',
-    href: '/features/reports',
+    href: '#reports',
   },
   {
     icon: Edit3,
     title: 'Edición de Descripciones',
     description:
       'Editor de texto avanzado para crear descripciones atractivas y detalladas de tus sneakers.',
-    href: '/features/rich-text-editor',
+    href: '#rich-text-editor',
   },
   {
     icon: Lock,
     title: 'Seguridad Avanzada',
     description:
       'Protección integral para los datos de tu inventario y registro de acciones de usuarios.',
-    href: '/features/security',
+    href: '#security',
   },
 ];
 
@@ -130,7 +130,7 @@ export default function SiteHeader({ session }: { session: Session | null }) {
                     <div className='flex items-center justify-between mb-4 pb-2 border-b'>
                       <h4 className='text-lg font-medium'>Características</h4>
                       <Link
-                        href='/features'
+                        href='#features'
                         className='text-sm text-blue-500 hover:underline'
                       >
                         Ver todas
@@ -140,9 +140,10 @@ export default function SiteHeader({ session }: { session: Session | null }) {
                       {features.map((feature, index) => (
                         <Link
                           key={index}
-                          href={`/feature/${feature.title
-                            .toLowerCase()
-                            .replace(/\s+/g, '-')}`}
+                          // href={`/feature/${feature.title
+                          //   .toLowerCase()
+                          //   .replace(/\s+/g, '-')}`}
+                          href={`#`}
                           className='block group'
                         >
                           <div className='flex items-start gap-4'>
@@ -172,8 +173,8 @@ export default function SiteHeader({ session }: { session: Session | null }) {
                         </div>
                         <Button asChild variant='secondary'>
                           <Link
-                            target='_blank'
-                            href='https://coding-school-typescript.vercel.app/give-away'
+                            // target='_blank'
+                            href='/register'
                           >
                             Empezar
                           </Link>
@@ -184,13 +185,13 @@ export default function SiteHeader({ session }: { session: Session | null }) {
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
-              <NavigationMenuItem>
+              {/* <NavigationMenuItem>
                 <Link href='/#pricing' legacyBehavior passHref>
                   <NavigationMenuLink className='group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50'>
                     Precios
                   </NavigationMenuLink>
                 </Link>
-              </NavigationMenuItem>
+              </NavigationMenuItem> */}
             </NavigationMenuList>
           </NavigationMenu>
         </div>

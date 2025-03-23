@@ -40,7 +40,7 @@ export default async function page() {
           },
           {
             label: 'Ver Demostración',
-            href: '/#demo',
+            href: '/#',
           },
         ]}
         icons={[
@@ -52,12 +52,12 @@ export default async function page() {
         className='min-h-[70vh]'
         userCount={currentUsers > 10 ? currentUsers : null}
       />
-      <GridBackground>
+      {/* <GridBackground>
         <div className='px-8 py-16 '>
           <TechStackGrid />
         </div>
-      </GridBackground>
-      <div className='py-16 max-w-6xl mx-auto px-8'>
+      </GridBackground> */}
+      {/* <div className='py-16 max-w-6xl mx-auto px-8'>
         <div className='relative rounded-lg overflow-hidden'>
           <BorderBeam />
           <Image
@@ -68,13 +68,13 @@ export default async function page() {
             className='w-full h-full rounded-lg object-cover  border shadow-2xl'
           />
         </div>
-      </div>
+      </div> */}
       <ProjectComparison />
       <GridBackground className=''>
         <FeatureTabs />
       </GridBackground>
 
-      <div id='demo' className='py-16 max-w-6xl mx-auto relative'>
+      {/* <div id='demo' className='py-16 max-w-6xl mx-auto relative'>
         <Iframe
           url='https://www.youtube.com/embed/TcyKfjikcIA?si=naix1jg9I2r0CnSu'
           width='100%'
@@ -91,7 +91,7 @@ export default async function page() {
         <div className='py'>
           <CustomizationCard theme='light' />
         </div>
-      </div>
+      </div> */}
       <FAQ />
     </section>
   );

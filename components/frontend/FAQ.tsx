@@ -1,88 +1,118 @@
-"use client";
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, HelpCircle, Minus, Plus } from "lucide-react";
-import Link from "next/link";
+'use client';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowRight,
+  HelpCircle,
+  Minus,
+  Plus,
+  Package,
+  Shield,
+  UserCheck,
+  Database,
+} from 'lucide-react';
+import Link from 'next/link';
+
 const faqs = [
   {
-    question: "What is the difference between a starter kit and a boilerplate?",
+    question:
+      '¿Qué funcionalidades incluye el sistema de gestión de inventario?',
     answer:
-      "A starter kit is typically more opinionated and comes with pre-built features, components, and design decisions, making it ready for immediate use in production. A boilerplate, on the other hand, is usually a bare-bones template with basic setup and structure, requiring more customization and development work. Our starter kit includes fully implemented features like authentication, payment systems, and user management, saving you significant development time.",
+      'Nuestro sistema incluye todas las funcionalidades esenciales para gestionar tu inventario eficientemente: categorización inteligente de productos, alertas automáticas de stock bajo configurables, búsqueda avanzada por características específicas, exportación de datos a CSV, Excel o PDF, historial de cambios con seguimiento detallado y acciones rápidas para movimientos de inventario. La plataforma está especialmente optimizada para negocios que necesitan control preciso de su mercancía.',
+    icon: Database,
+  },
+  {
+    question: '¿Cómo funciona el sistema de seguridad y roles de usuario?',
+    answer:
+      'Implementamos un robusto sistema de autenticación con roles específicos para administradores, vendedores y personal de almacén. Cada rol tiene permisos personalizados que determinan su acceso a diferentes módulos del sistema. Utilizamos JWT y cookies seguras para la gestión de sesiones, encriptación avanzada para el manejo de contraseñas, y mantenemos registros de auditoría para todas las acciones sensibles, garantizando la protección total contra accesos no autorizados.',
+    icon: Shield,
   },
   {
     question:
-      "How is supastarter different from other starter kits or boilerplates?",
+      '¿Puedo personalizar las fichas de producto según mis necesidades?',
     answer:
-      "Our starter kit stands out by providing a complete, production-ready solution with fully implemented features rather than just templates. We include advanced functionality like user authentication, payment processing, email systems, and responsive UI components. Additionally, we maintain clean, well-documented code, regular updates, and provide dedicated support through our Discord community.",
+      'Absolutamente. Nuestro sistema incluye formularios dinámicos con campos condicionales que puedes adaptar según tus necesidades específicas. Dispondrás de un editor de texto enriquecido para descripciones detalladas, sistema de fichas técnicas con especificaciones completas, y etiquetado avanzado de productos. También ofrecemos plantillas predefinidas que puedes modificar, y todas las fichas mantienen un historial de versiones para seguimiento de cambios.',
+    icon: Package,
   },
   {
-    question: "How do I get access to the boilerplate code?",
+    question:
+      '¿El sistema permite gestión de múltiples almacenes o ubicaciones?',
     answer:
-      "After purchasing, you'll receive immediate access to the complete source code via GitHub. You'll be invited to our private repository where you can clone or download the code. We'll also send you detailed documentation and setup instructions to your registered email address.",
+      'Sí, nuestra plataforma está diseñada para gestionar múltiples almacenes o ubicaciones simultáneamente. Puedes configurar diferentes puntos de almacenamiento, asignar inventario específico a cada ubicación, realizar transferencias entre almacenes con seguimiento en tiempo real, y generar informes de inventario segmentados por ubicación. Esto te permite mantener un control centralizado mientras gestionas operaciones distribuidas.',
+    icon: Database,
   },
   {
-    question: "Is the boilerplate being maintained regularly?",
+    question: '¿Cómo puedo obtener acceso al código fuente?',
     answer:
-      "Yes, we actively maintain and update the codebase with regular commits, bug fixes, and feature improvements. Our team consistently reviews dependencies, implements security patches, and adds new features based on user feedback and modern development practices. You can check our changelog for detailed update history.",
+      'Después de la compra, recibirás acceso inmediato al código fuente completo a través de GitHub. Serás invitado a nuestro repositorio privado donde podrás clonar o descargar el código. También te enviaremos documentación detallada e instrucciones de configuración a tu correo electrónico registrado para que puedas implementar el sistema rápidamente.',
+    icon: UserCheck,
   },
   {
-    question: "What if I find a bug?",
+    question: '¿El sistema se actualiza regularmente?',
     answer:
-      "If you encounter any bugs, you can report them through our GitHub issues or Discord community. Our development team actively monitors these channels and typically responds within 24-48 hours. We prioritize bug fixes and regularly release updates to ensure the stability of the codebase.",
+      'Sí, mantenemos y actualizamos activamente el código base con commits regulares, correcciones de errores y mejoras de funcionalidades. Nuestro equipo revisa constantemente las dependencias, implementa parches de seguridad y añade nuevas características basadas en el feedback de los usuarios y las prácticas modernas de desarrollo. Puedes consultar nuestro registro de cambios para ver el historial detallado de actualizaciones.',
+    icon: HelpCircle,
   },
   {
-    question: "What do I get for my money?",
+    question: '¿Qué tipo de soporte técnico ofrecen?',
     answer:
-      "Your purchase includes: Full source code access, Regular updates and improvements, Premium UI components, Authentication system, Payment integration, Email templates, Documentation, APIs, Database schema, Admin dashboard, and Customer support through our Discord community. You also get lifetime access to all future updates within the current major version.",
+      'Proporcionamos soporte técnico completo a través de nuestra comunidad de Discord, donde nuestros desarrolladores responden consultas generalmente en 24-48 horas. Además, ofrecemos documentación exhaustiva, videos tutoriales, y guías paso a paso para la implementación. Para clientes empresariales, también disponemos de planes de soporte premium con asistencia prioritaria y sesiones de consultoría personalizada.',
+    icon: HelpCircle,
   },
   {
-    question: "What am I allowed to do with the starter template?",
+    question: '¿Es posible integrar este sistema con mi software existente?',
     answer:
-      "You can use the starter kit to create unlimited personal or commercial projects. Each license is valid for one developer and can be used to create multiple end products. You cannot resell the source code as-is or redistribute it as another starter kit/boilerplate. The code must be part of a larger application.",
+      'Nuestra aplicación está diseñada con una arquitectura modular que facilita la integración con sistemas existentes. Ofrecemos APIs RESTful bien documentadas, soporte para webhooks, y conectores para plataformas populares de e-commerce y ERP. También podemos proporcionar servicios de integración personalizados para casos de uso específicos, asegurando una transición fluida y preservando tus datos y flujos de trabajo actuales.',
+    icon: Database,
   },
   {
-    question: "Can I see what I am getting before purchasing?",
+    question: '¿Qué incluye exactamente mi compra?',
     answer:
-      "Yes, you can explore our detailed feature list, view our live demo, and check our documentation to understand the full scope of what's included. We also provide code samples and component previews on our website. Additionally, we offer a 14-day money-back guarantee if you're not satisfied with the product.",
-  },
-  {
-    question: "Can I get a refund?",
-    answer:
-      "Yes, we offer a 14-day money-back guarantee. If you're not satisfied with the starter kit, simply contact our support team within 14 days of purchase, and we'll process your refund. No questions asked. However, refunds cannot be issued if you've already used the code in a production project.",
+      'Tu compra incluye: acceso completo al código fuente, actualizaciones y mejoras regulares, componentes UI premium optimizados para gestión de inventarios, sistema de autenticación, plantillas de correo electrónico, documentación completa, APIs, esquema de base de datos, panel de administración, y soporte al cliente a través de nuestra comunidad de Discord. También obtienes acceso de por vida a todas las actualizaciones futuras dentro de la versión principal actual.',
+    icon: Package,
   },
 ];
+
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-16 bg-green-50">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="text-center mb-12">
-          <p className="text-sm font-semibold text-green-600 mb-2 uppercase tracking-wide">
-            Frequently Asked Questions
+    <section className='py-16 bg-blue-50'>
+      <div className='container mx-auto px-4 max-w-4xl'>
+        <div className='text-center mb-12'>
+          <p className='text-sm font-semibold text-blue-600 mb-2 uppercase tracking-wide'>
+            Preguntas Frecuentes
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            You ask? We <span className="italic">answer</span>
+          <h2 className='text-4xl md:text-5xl font-bold text-gray-900 mb-4'>
+            Todo sobre tu <span className='italic'>Inventario</span>
           </h2>
+          <p className='text-gray-600 max-w-2xl mx-auto'>
+            Resolvemos tus dudas sobre nuestro sistema de gestión de inventarios
+          </p>
         </div>
-        <div className="space-y-4">
+        <div className='space-y-4'>
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl border overflow-hidden shadow-sm"
+              className='bg-white rounded-xl border overflow-hidden shadow-sm'
             >
               <button
-                className="w-full text-left p-4 focus:outline-none"
+                className='w-full text-left p-4 focus:outline-none'
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {faq.question}
-                  </h3>
+                <div className='flex justify-between items-center'>
+                  <div className='flex items-center'>
+                    {faq.icon && (
+                      <faq.icon className='w-5 h-5 text-blue-500 mr-3 flex-shrink-0' />
+                    )}
+                    <h3 className='text-lg font-semibold text-gray-900'>
+                      {faq.question}
+                    </h3>
+                  </div>
                   {openIndex === index ? (
-                    <Minus className="w-5 h-5 text-green-600" />
+                    <Minus className='w-5 h-5 text-blue-600 flex-shrink-0' />
                   ) : (
-                    <Plus className="w-5 h-5 text-green-600" />
+                    <Plus className='w-5 h-5 text-blue-600 flex-shrink-0' />
                   )}
                 </div>
               </button>
@@ -90,28 +120,30 @@ export default function FAQ() {
                 {openIndex === index && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
+                    animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="p-4 pt-0 text-gray-600">{faq.answer}</div>
+                    <div className='p-4 pt-0 text-gray-600 ml-8'>
+                      {faq.answer}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
           ))}
         </div>
-        <div className="mt-12 flex items-center justify-between">
-          <div className="flex items-center">
-            <HelpCircle className="w-5 h-5 text-gray-500 mr-2" />
-            <span className="text-gray-600">Need further support?</span>
+        <div className='mt-12 flex items-center justify-between'>
+          <div className='flex items-center'>
+            <HelpCircle className='w-5 h-5 text-gray-500 mr-2' />
+            <span className='text-gray-600'>¿Necesitas más información?</span>
           </div>
           <Link
-            href="/#contact"
-            className="bg-lime-400 text-green-900 px-6 py-2 rounded-full hover:bg-lime-500 transition duration-300 flex items-center"
+            href='/#contact'
+            className='bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-300 flex items-center'
           >
-            Contact us
-            <ArrowRight className="w-4 h-4 ml-2" />
+            Contáctanos
+            <ArrowRight className='w-4 h-4 ml-2' />
           </Link>
         </div>
       </div>

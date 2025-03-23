@@ -1,67 +1,67 @@
 export const siteConfig = {
-  name: "Sneaker POS",
-  shortName: "SP",
+  name: 'Sneaker POS',
+  shortName: 'SP',
   description:
-    "Providing exceptional healthcare services with compassion and expertise since 2008. Our commitment to excellence has made us a trusted healthcare provider in the region.",
+    'Un completo sistema de punto de venta e inventario diseñado específicamente para tiendas de sneakers y calzado deportivo. Con control de stock en tiempo real, seguimiento de tendencias, gestión de proveedores y análisis de ventas.',
 
   // Contact Information
   contact: {
     phone: {
-      primary: "+256(0) 762063160",
-      emergency: "+256(0) 756384580",
-      whatsapp: "+256(0) 762063160",
+      primary: '+57 3153914860',
+      emergency: '+57 3153914860',
+      whatsapp: '+57 3153914860',
     },
     email: {
-      primary: "jb@desishub.com",
-      support: "info@desishub.com",
-      appointments: "jb@desishub.com",
+      primary: 'eliablopez@hotmail.com',
+      support: 'eliablopezmurillo@gmail.com',
+      appointments: 'eliablopezmurillo@gmail.com',
     },
     address: {
-      street: "P.O.Box 430337",
-      city: "Kasese",
-      country: "Uganda",
+      street: 'Carrera 14',
+      city: 'Cartagena',
+      country: 'Colombia',
       coordinates: {
-        latitude: "0.11111",
-        longitude: "30.11111",
+        latitude: '0.11111',
+        longitude: '30.11111',
       },
     },
   },
 
   // Social Media Links
   social: {
-    facebook: "https://facebook.com/kasesehospital",
-    twitter: "https://twitter.com/kasesehospital",
-    instagram: "https://instagram.com/kasesehospital",
-    linkedin: "https://linkedin.com/company/kasesehospital",
-    youtube: "https://youtube.com/kasesehospital",
+    facebook: 'https://facebook.com/kasesehospital',
+    twitter: 'https://twitter.com/kasesehospital',
+    instagram: 'https://instagram.com/kasesehospital',
+    linkedin: 'https://linkedin.com/company/kasesehospital',
+    youtube: 'https://youtube.com/kasesehospital',
   },
 
   // Working Hours
   workingHours: {
-    status: "24/7 All Week Days",
-    emergency: "24/7 Emergency Services",
-    outpatient: "Monday - Saturday: 8:00 AM - 5:00 PM",
-    pharmacy: "24/7 Pharmacy Services",
-    laboratory: "24/7 Laboratory Services",
+    status: '24/7 All Week Days',
+    emergency: '24/7 Emergency Services',
+    outpatient: 'Monday - Saturday: 8:00 AM - 5:00 PM',
+    pharmacy: '24/7 Pharmacy Services',
+    laboratory: '24/7 Laboratory Services',
   },
 
   // Company Meta Information
   meta: {
-    foundedYear: 2008,
-    license: "Licensed by Uganda Medical and Dental Practitioners Council",
-    accreditation: "Internationally Accredited Healthcare Facility",
+    foundedYear: 2025,
+    license: 'Licensed by Uganda Medical and Dental Practitioners Council',
+    accreditation: 'Internationally Accredited Healthcare Facility',
     values: [
       {
-        title: "Excellence",
-        description: "Committed to providing the highest quality healthcare",
+        title: 'Excellence',
+        description: 'Committed to providing the highest quality healthcare',
       },
       {
-        title: "Compassion",
-        description: "Treating every patient with care and empathy",
+        title: 'Compassion',
+        description: 'Treating every patient with care and empathy',
       },
       {
-        title: "Innovation",
-        description: "Embracing modern medical technologies and practices",
+        title: 'Innovation',
+        description: 'Embracing modern medical technologies and practices',
       },
     ],
   },
@@ -69,83 +69,90 @@ export const siteConfig = {
   // Service Categories
   services: {
     emergency: [
-      "24/7 Emergency Care",
-      "Ambulance Services",
-      "Trauma Care",
-      "Critical Care",
+      '24/7 Emergency Care',
+      'Ambulance Services',
+      'Trauma Care',
+      'Critical Care',
     ],
     specialties: [
-      "Obstetrics & Gynecology",
-      "Surgery Department",
-      "Medical Department",
-      "Laboratory Department",
-      "Imaging Department",
-      "Pediatrics Department",
-      "Outpatient Department",
+      'Obstetrics & Gynecology',
+      'Surgery Department',
+      'Medical Department',
+      'Laboratory Department',
+      'Imaging Department',
+      'Pediatrics Department',
+      'Outpatient Department',
     ],
     supportServices: [
-      "Pharmacy",
-      "Laboratory",
-      "Radiology",
-      "Physical Therapy",
-      "Nutritional Counseling",
+      'Pharmacy',
+      'Laboratory',
+      'Radiology',
+      'Physical Therapy',
+      'Nutritional Counseling',
     ],
   },
 
   // SEO and Metadata
   seo: {
-    title: "Kasese Hospital - Excellence in Healthcare",
+    title: 'Sneaker POS - Sistema Integral para Tiendas de Sneakers',
     description:
-      "Leading healthcare provider in Kasese offering comprehensive medical services, emergency care, and specialized treatments.",
+      'Un completo sistema de punto de venta e inventario diseñado específicamente para tiendas de sneakers y calzado deportivo. Con control de stock en tiempo real, seguimiento de tendencias, gestión de proveedores y análisis de ventas.',
     keywords: [
-      "hospital",
-      "healthcare",
-      "medical services",
-      "emergency care",
-      "Kasese",
-      "Uganda",
-      "doctors",
-      "specialists",
+      'sneaker',
+      'POS',
+      'point of sale',
+      'inventory management',
+      'sneaker store',
+      'shoe store',
+      'sneaker POS',
+      'sneaker inventory',
+      'sneaker management',
+      'sneaker sales',
+      'calzado deportivo',
+      'tienda de sneakers',
+      'gestión de inventario',
+      'punto de venta',
+      'sistema de punto de venta',
     ],
-    ogImage: "https://kasesehospital.org/og-image.jpg",
+    ogImage: 'https://kasesehospital.org/og-image.jpg',
   },
 
   // Legal Information
   legal: {
-    name: "Kasese Hospital Ltd",
-    registration: "UG123456789",
-    privacyPolicy: "/privacy-policy",
-    terms: "/terms-and-conditions",
-    accessibility: "/accessibility",
+    name: 'Kasese Hospital Ltd',
+    registration: 'UG123456789',
+    privacyPolicy: '/privacy-policy',
+    terms: '/terms-and-conditions',
+    accessibility: '/accessibility',
   },
 
   // Appointment Types
   appointmentTypes: [
     {
-      id: "general",
-      name: "General Consultation",
-      duration: "30 minutes",
+      id: 'general',
+      name: 'General Consultation',
+      duration: '30 minutes',
     },
     {
-      id: "specialist",
-      name: "Specialist Consultation",
-      duration: "45 minutes",
+      id: 'specialist',
+      name: 'Specialist Consultation',
+      duration: '45 minutes',
     },
     {
-      id: "followup",
-      name: "Follow-up Visit",
-      duration: "20 minutes",
+      id: 'followup',
+      name: 'Follow-up Visit',
+      duration: '20 minutes',
     },
   ],
 
   // Insurance and Payment
   insurance: {
     accepted: [
-      "National Health Insurance",
-      "Private Insurance Companies",
-      "Corporate Medical Schemes",
+      'National Health Insurance',
+      'Private Insurance Companies',
+      'Corporate Medical Schemes',
     ],
-    paymentMethods: ["Cash", "Credit Card", "Mobile Money", "Insurance"],
+    paymentMethods: ['Cash', 'Credit Card', 'Mobile Money', 'Insurance'],
   },
 };
 
@@ -175,7 +182,7 @@ export const getSEOData = (pageName?: string) => {
   return {
     title: pageName ? `${pageName} - ${siteConfig.name}` : siteConfig.seo.title,
     description: siteConfig.seo.description,
-    keywords: siteConfig.seo.keywords.join(", "),
+    keywords: siteConfig.seo.keywords.join(', '),
     ogImage: siteConfig.seo.ogImage,
   };
 };

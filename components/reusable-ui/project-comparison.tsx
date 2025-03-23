@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Image,
   BarChart2,
+  ShoppingBag,
 } from 'lucide-react';
 
 interface TimelineStep {
@@ -130,30 +131,31 @@ const ProjectComparison = ({ theme = 'light' }) => {
   const totalHours = steps.reduce((acc, step) => acc + step.duration, 0);
 
   return (
-    <section className='w-full bg-teal-50/20'>
+    <section className='w-full bg-blue-50/20'>
       {/* Updated Header Section */}
       <div className='w-full max-w-6xl mx-auto py-20 px-6 text-center'>
         <h2 className='text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-8'>
-          Why Waste Time Starting
+          ¿Por qué complicar tu gestión
           <br />
-          from
-          <span className='inline-block bg-gradient-to-r from-orange-100 via-purple-100 to-purple-200 px-4 rounded-lg'>
-            Scratch?
+          de
+          <span className='inline-block bg-gradient-to-r from-blue-100 via-indigo-100 to-indigo-200 px-4 rounded-lg'>
+            inventario?
           </span>
         </h2>
 
         <p className='text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed'>
-          See how HubStack dramatically reduces development time with
-          production-ready features that typically take days to implement.
+          Descubre cómo Sneaker POS revoluciona la administración de tu
+          inventario con funciones listas para usar que normalmente tardarías
+          semanas en implementar.
           <br />
-          Save up to {totalHours} hours of development time
+          Ahorra hasta {totalHours} horas de tiempo en implementación
         </p>
       </div>
 
       {/* Comparison Grid */}
       <div className='max-w-7xl mx-auto px-6 pb-20'>
         <div className='grid lg:grid-cols-2 gap-8'>
-          {/* Without HubStack */}
+          {/* Without Sneaker POS */}
           <div className='relative'>
             <div className='sticky top-8 bg-white rounded-3xl border border-rose-100 overflow-hidden'>
               <div className='p-6 border-b border-rose-100 bg-gradient-to-b from-rose-50/50'>
@@ -162,14 +164,14 @@ const ProjectComparison = ({ theme = 'light' }) => {
                     <X className='w-5 h-5 text-rose-500' />
                   </div>
                   <h3 className='text-xl font-semibold text-slate-900'>
-                    Without HubStack
+                    Sin Sneaker POS
                   </h3>
                 </div>
                 <div className='flex items-baseline gap-2'>
                   <span className='text-3xl font-bold text-rose-500'>
-                    {totalHours} Hours
+                    {totalHours} Horas
                   </span>
-                  <span className='text-slate-600'>of development time</span>
+                  <span className='text-slate-600'>de trabajo manual</span>
                 </div>
               </div>
               <div className='p-6'>
@@ -200,31 +202,33 @@ const ProjectComparison = ({ theme = 'light' }) => {
             </div>
           </div>
 
-          {/* With HubStack */}
+          {/* With Sneaker POS */}
           <div className='relative'>
-            <div className='sticky top-8 bg-white rounded-3xl border border-emerald-100 overflow-hidden'>
-              <div className='p-6 border-b border-emerald-100 bg-gradient-to-b from-emerald-50/50'>
+            <div className='sticky top-8 bg-white rounded-3xl border border-blue-100 overflow-hidden'>
+              <div className='p-6 border-b border-blue-100 bg-gradient-to-b from-blue-50/50'>
                 <div className='flex items-center gap-3 mb-4'>
-                  <div className='w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center'>
-                    <Rocket className='w-5 h-5 text-emerald-500' />
+                  <div className='w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center'>
+                    <ShoppingBag className='w-5 h-5 text-blue-500' />
                   </div>
                   <h3 className='text-xl font-semibold text-slate-900'>
-                    With HubStack
+                    Con Sneaker POS
                   </h3>
                 </div>
                 <div className='flex items-baseline gap-2'>
-                  <span className='text-3xl font-bold text-emerald-500'>
-                    Instant Setup
+                  <span className='text-3xl font-bold text-blue-500'>
+                    Configuración Inmediata
                   </span>
-                  <span className='text-slate-600'>with ready features</span>
+                  <span className='text-slate-600'>
+                    funciones listas para usar
+                  </span>
                 </div>
               </div>
               <div className='p-6'>
                 <ul className='space-y-6'>
                   {steps.map((step, index) => (
                     <li key={index} className='flex gap-4'>
-                      <div className='w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0'>
-                        <CheckCircle className='w-5 h-5 text-emerald-500' />
+                      <div className='w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0'>
+                        <CheckCircle className='w-5 h-5 text-blue-500' />
                       </div>
                       <div>
                         <div className='flex items-center gap-2 mb-1'>
@@ -232,9 +236,9 @@ const ProjectComparison = ({ theme = 'light' }) => {
                             {step.title}{' '}
                             <span className='font-bold'>{step.highlight}</span>
                           </h4>
-                          <ArrowRight className='w-4 h-4 text-emerald-500' />
-                          <span className='text-emerald-500 text-sm'>
-                            Ready to use
+                          <ArrowRight className='w-4 h-4 text-blue-500' />
+                          <span className='text-blue-500 text-sm'>
+                            Listo para usar
                           </span>
                         </div>
                         <p className='text-slate-600 text-sm'>{step.benefit}</p>
