@@ -1,25 +1,25 @@
-"use server";
-import { ResetPasswordEmail } from "@/components/email-templates/reset-password";
-import { db } from "@/prisma/db";
-import { UserProps } from "@/types/types";
-import bcrypt, { compare } from "bcryptjs";
-import { revalidatePath } from "next/cache";
-import { PasswordProps } from "@/components/Forms/ChangePasswordForm";
-import { Resend } from "resend";
-import { generateToken } from "@/lib/token";
+'use server';
+import { ResetPasswordEmail } from '@/components/email-templates/reset-password';
+import { db } from '@/prisma/db';
+import { UserProps } from '@/types/types';
+import bcrypt, { compare } from 'bcryptjs';
+import { revalidatePath } from 'next/cache';
+import { PasswordProps } from '@/components/Forms/ChangePasswordForm';
+import { Resend } from 'resend';
+import { generateToken } from '@/lib/token';
 // import { generateNumericToken } from "@/lib/token";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 const DEFAULT_USER_ROLE = {
-  displayName: "User",
-  roleName: "user",
-  description: "Default user role with basic permissions",
+  displayName: 'User',
+  roleName: 'user',
+  description: 'Default user role with basic permissions',
   permissions: [
-    "dashboard.read",
-    "profile.read",
-    "profile.update",
-    "orders.read",
+    'dashboard.read',
+    'profile.read',
+    'profile.update',
+    'orders.read',
   ],
 };
 
@@ -69,6 +69,17 @@ export async function createUser(data: UserProps) {
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      const org = await db.organization.create({
+        data: {
+          name: 'AlexSport',
+          slug: 'alex-sport',
+          country: 'Colombia',
+          currency: 'COP',
+          industry: 'Sports',
+          address: '123 Main St, City, Country',
+        },
+      });
+
       // Create user with role
       const newUser = await tx.user.create({
         data: {
@@ -79,6 +90,8 @@ export async function createUser(data: UserProps) {
           name,
           phone,
           image,
+          orgId: org.id,
+          orgName: org.name,
           roles: {
             connect: {
               id: defaultRole.id,
@@ -97,7 +110,7 @@ export async function createUser(data: UserProps) {
       };
     });
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error('Error creating user:', error);
     return {
       error: `Something went wrong, Please try again`,
       status: 500,
@@ -115,7 +128,7 @@ export async function getAllMembers() {
     });
     return members;
   } catch (error) {
-    console.error("Error fetching the count:", error);
+    console.error('Error fetching the count:', error);
     return 0;
   }
 }
@@ -123,7 +136,7 @@ export async function getAllUsers() {
   try {
     const users = await db.user.findMany({
       orderBy: {
-        createdAt: "desc",
+        createdAt: 'desc',
       },
       include: {
         roles: true,
@@ -131,7 +144,7 @@ export async function getAllUsers() {
     });
     return users;
   } catch (error) {
-    console.error("Error fetching the count:", error);
+    console.error('Error fetching the count:', error);
     return 0;
   }
 }
@@ -175,7 +188,7 @@ export async function sendResetLink(email: string) {
     if (!user) {
       return {
         status: 404,
-        error: "We cannot associate this email with any user",
+        error: 'We cannot associate this email with any user',
         data: null,
       };
     }
@@ -192,9 +205,9 @@ export async function sendResetLink(email: string) {
 
     const resetPasswordLink = `${baseUrl}/reset-password?token=${token}&&email=${email}`;
     const { data, error } = await resend.emails.send({
-      from: "NextAdmin <info@desishub.com>",
+      from: 'NextAdmin <info@desishub.com>',
       to: email,
-      subject: "Reset Password Request",
+      subject: 'Reset Password Request',
       react: ResetPasswordEmail({ userFirstname, resetPasswordLink }),
     });
     if (error) {
@@ -214,7 +227,7 @@ export async function sendResetLink(email: string) {
     console.log(error);
     return {
       status: 500,
-      error: "We cannot find your email",
+      error: 'We cannot find your email',
       data: null,
     };
   }
@@ -234,7 +247,7 @@ export async function updateUserPassword(id: string, data: PasswordProps) {
     passwordMatch = await compare(data.oldPassword, existingUser.password);
   }
   if (!passwordMatch) {
-    return { error: "Old Password Incorrect", status: 403 };
+    return { error: 'Old Password Incorrect', status: 403 };
   }
   const hashedPassword = await bcrypt.hash(data.newPassword, 10);
   try {
@@ -246,7 +259,7 @@ export async function updateUserPassword(id: string, data: PasswordProps) {
         password: hashedPassword,
       },
     });
-    revalidatePath("/dashboard/clients");
+    revalidatePath('/dashboard/clients');
     return { error: null, status: 200 };
   } catch (error) {
     console.log(error);
@@ -266,7 +279,7 @@ export async function resetUserPassword(
   if (!user) {
     return {
       status: 404,
-      error: "Please use a valid reset link",
+      error: 'Please use a valid reset link',
       data: null,
     };
   }

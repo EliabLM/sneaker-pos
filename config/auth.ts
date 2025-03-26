@@ -1,11 +1,11 @@
-import { AuthOptions, NextAuthOptions } from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
-import type { Adapter } from "next-auth/adapters";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcryptjs";
-import { db } from "@/prisma/db";
+import { AuthOptions, NextAuthOptions } from 'next-auth';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import GoogleProvider from 'next-auth/providers/google';
+import GitHubProvider from 'next-auth/providers/github';
+import type { Adapter } from 'next-auth/adapters';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { compare } from 'bcryptjs';
+import { db } from '@/prisma/db';
 
 // Helper function to get user with roles and permissions
 async function getUserWithRoles(userId: string) {
@@ -34,39 +34,63 @@ export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
   providers: [
     GitHubProvider({
       async profile(profile) {
         // Find or create default role
         const defaultRole = await db.role.findFirst({
-          where: { roleName: "user" },
+          where: { roleName: 'user' },
+        });
+
+        const org = await db.organization.create({
+          data: {
+            name: 'AlexSport',
+            slug: 'alex-sport',
+            country: 'Colombia',
+            currency: 'COP',
+            industry: 'Sports',
+            address: '123 Main St, City, Country',
+          },
         });
 
         return {
           id: profile.id.toString(),
           name: profile.name || profile.login,
-          firstName: profile.name?.split(" ")[0] || "",
-          lastName: profile.name?.split(" ")[1] || "",
-          phone: "",
+          firstName: profile.name?.split(' ')[0] || '',
+          lastName: profile.name?.split(' ')[1] || '',
+          phone: '',
           image: profile.avatar_url,
           email: profile.email,
+          orgId: org.id,
+          orgName: org.name,
           roles: defaultRole ? [defaultRole] : [],
           permissions: defaultRole ? defaultRole.permissions : [], // Include permissions from default role
         };
       },
-      clientId: process.env.GITHUB_CLIENT_ID || "",
-      clientSecret: process.env.GITHUB_SECRET || "",
+      clientId: process.env.GITHUB_CLIENT_ID || '',
+      clientSecret: process.env.GITHUB_SECRET || '',
     }),
     GoogleProvider({
       async profile(profile) {
         // Find or create default role
         const defaultRole = await db.role.findFirst({
-          where: { roleName: "user" },
+          where: { roleName: 'user' },
+        });
+
+        const org = await db.organization.create({
+          data: {
+            name: 'AlexSport',
+            slug: 'alex-sport',
+            country: 'Colombia',
+            currency: 'COP',
+            industry: 'Sports',
+            address: '123 Main St, City, Country',
+          },
         });
 
         return {
@@ -74,26 +98,28 @@ export const authOptions: NextAuthOptions = {
           name: `${profile.given_name} ${profile.family_name}`,
           firstName: profile.given_name,
           lastName: profile.family_name,
-          phone: "",
+          phone: '',
           image: profile.picture,
           email: profile.email,
+          orgId: org.id,
+          orgName: org.name,
           roles: defaultRole ? [defaultRole] : [],
           permissions: defaultRole ? defaultRole.permissions : [], // Include permissions from default role
         };
       },
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      clientId: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jb@gmail.com" },
-        password: { label: "Password", type: "password" },
+        email: { label: 'Email', type: 'text', placeholder: 'jb@gmail.com' },
+        password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
         try {
           if (!credentials?.email || !credentials?.password) {
-            throw { error: "No Inputs Found", status: 401 };
+            throw { error: 'No Inputs Found', status: 401 };
           }
 
           const existingUser = await db.user.findUnique({
@@ -104,7 +130,7 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!existingUser) {
-            throw { error: "No user found", status: 401 };
+            throw { error: 'No user found', status: 401 };
           }
 
           let passwordMatch: boolean = false;
@@ -116,7 +142,7 @@ export const authOptions: NextAuthOptions = {
           }
 
           if (!passwordMatch) {
-            throw { error: "Password Incorrect", status: 401 };
+            throw { error: 'Password Incorrect', status: 401 };
           }
 
           // Get all permissions from user's roles
@@ -136,10 +162,12 @@ export const authOptions: NextAuthOptions = {
             image: existingUser.image,
             email: existingUser.email,
             roles: existingUser.roles,
+            orgId: existingUser.orgId,
+            orgName: existingUser.orgName,
             permissions: uniquePermissions,
           };
         } catch (error) {
-          throw { error: "Something went wrong", status: 401 };
+          throw { error: 'Something went wrong', status: 401 };
         }
       },
     }),
@@ -149,7 +177,7 @@ export const authOptions: NextAuthOptions = {
       // For OAuth providers, assign default role if user is new
       if (
         account &&
-        (account.provider === "google" || account.provider === "github")
+        (account.provider === 'google' || account.provider === 'github')
       ) {
         const existingUser = await db.user.findUnique({
           where: { email: user.email! },
@@ -159,7 +187,7 @@ export const authOptions: NextAuthOptions = {
         if (!existingUser?.roles?.length) {
           // Assign default user role
           const defaultRole = await db.role.findFirst({
-            where: { roleName: "user" },
+            where: { roleName: 'user' },
           });
 
           if (defaultRole) {
@@ -187,12 +215,16 @@ export const authOptions: NextAuthOptions = {
         token.lastName = user.lastName;
         token.phone = user.phone;
         token.roles = user.roles;
+        token.orgId = user.orgId;
+        token.orgName = user.orgName;
         token.permissions = user.permissions;
       } else {
         // For subsequent requests, refresh roles and permissions
         const userData = await getUserWithRoles(token.id);
         if (userData) {
           token.roles = userData.roles;
+          token.orgName = userData.orgName;
+          token.orgId = userData.orgId;
           token.permissions = userData.permissions;
         }
       }
@@ -208,6 +240,8 @@ export const authOptions: NextAuthOptions = {
         session.user.lastName = token.lastName;
         session.user.phone = token.phone;
         session.user.roles = token.roles;
+        session.user.orgId = token.orgId;
+        session.user.orgName = token.orgName;
         session.user.permissions = token.permissions;
       }
       return session;
